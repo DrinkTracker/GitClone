@@ -2,8 +2,8 @@ name: Glitch Keep-Alive
 
 on:
   schedule:
-    # This cron job is set to run at the 30th minute of every hour, but you can adjust it to your needs
-    - cron: '30 * * * *'
+    # This cron job is set to run every minute
+    - cron: '* * * * *'
 
 jobs:
   keep-alive:
