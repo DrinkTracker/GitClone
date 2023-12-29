@@ -1,26 +1,75 @@
+/* Calendar base styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
+    background-color: #000000; /* Color for overall background */
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+}
+.nav {
+    text-align: center;
+    position: relative; /* Establish a positioning context for absolute positioning */
+    padding-top: 30px; /* Add padding to ensure content does not overlap with buttons */
+    padding-bottom: 20px; /* Additional space between the nav and calendar */
+}
+.nav button {
+    padding: 5px 12px;
+    border: 1px solid #f1f0f5; /* Color for arrow button outline color */
+    border-radius: 5px;
+    background-color: #000000; /* Color for background of arrow box */
+    cursor: pointer;
+    color: #f1f0f5; /* Color for arrow text */
+    font-size: 1.5em;
+}
+.nav #prev {
+    position: absolute;
+    left: calc(50% - 160px); /* Adjust this value as needed */
+    top: calc(50% - 15px);
+}
+.nav #next {
+    position: absolute;
+    right: calc(50% - 155px); /* Adjust this value as needed */
+    top: calc(50% - 15px);
+}
+.nav span {
+    font-size: 1.5em;
+    padding: 0 15px; /* Padding to push the arrows outward a bit */
+    color: #f1f0f5 /* Color for month/year text at top */
 }
 
-#calendar-app {
+.calendar {
+    width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    overflow: hidden;
+    border-collapse: collapse;
 }
-
-header {
-    background-color: #007bff;
-    color: #fff;
-    padding: 1em;
+.calendar thead {
+    background-color: #1c1c1e; /* Color for top day blocks */
+    color: #f1f0f5
+}
+.calendar th {
+    padding: 10px;
+    border: 1px solid #1c1c1e; /* Color for top day block borders */
     text-align: center;
 }
+.calendar td {
+    width: 14.28%;
+    height: 100px;
+    border: 1px solid #242424; /* Color for date block borders */
+    text-align: right;
+    vertical-align: top;
+    padding: 5px;
+    color: #f1f0f5 /* Color for calendar text */
+}
+.calendar td:not(:empty):hover {
+    background-color: #eaeaea;
+    cursor: pointer;
+}
 
-#calendar {
-    margin: 20px;
+/* Style for the current day with a different color and glow effect */
+.selected-day {
+    background-color: #1f66f4; /* Colored background for current day */
+    color: white; /* Color for the text of selected day */
+    font-weight: bold;
+    box-shadow: 0 0 20px #1f66f4; /* Glow effect color */
+    border: 1px solid #1f66f4 !important; /* Specified color for the highlighted day border */
 }
