@@ -1,6 +1,6 @@
 /* Calendar base styles */
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #000000; /* Color for overall background */
     margin: 0;
     padding: 0;
@@ -8,43 +8,55 @@ body {
 .nav {
     text-align: center;
     position: relative; /* Establish a positioning context for absolute positioning */
-    padding-top: 30px; /* Add padding to ensure content does not overlap with buttons */
-    padding-bottom: 20px; /* Additional space between the nav and calendar */
+    padding-top: 10px; /* Add padding to ensure content does not overlap with buttons */
+    padding-bottom: 10px; /* Additional space between the nav and calendar */
 }
-.nav button {
-    padding: 5px 12px;
-    border: 1px solid #f1f0f5; /* Color for arrow button outline color */
-    border-radius: 5px;
-    background-color: #000000; /* Color for background of arrow box */
-    cursor: pointer;
-    color: #f1f0f5; /* Color for arrow text */
-    font-size: 1.5em;
-}
+
 .nav #prev {
     position: absolute;
-    left: calc(50% - 160px); /* Adjust this value as needed */
-    top: calc(50% - 15px);
+    left: calc(50% - 120px); /* Adjust this value as needed */
+    top: calc(50% - 18px);
 }
 .nav #next {
     position: absolute;
-    right: calc(50% - 155px); /* Adjust this value as needed */
-    top: calc(50% - 15px);
+    right: calc(50% - 120px); /* Adjust this value as needed */
+    top: calc(50% - 18px);
 }
 .nav span {
-    font-size: 1.5em;
+    font-size: 1.2em;
     padding: 0 15px; /* Padding to push the arrows outward a bit */
-    color: #f1f0f5 /* Color for month/year text at top */
+    color: #FFFFFF; /* Color for the month and year header */
+}
+
+/* Style for arrow buttons */
+.arrow-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 35px; /* SVG icon width */
+    height: 35px; /* SVG icon height */
+    display: inline-flex; /* Align the SVG icon */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Style for arrow icons (SVG) */
+.arrow-icon {
+    fill: #FFFFFF; /* SVG icon color */
+    width: 35px; /* SVG icon width */
+    height: 35px; /* SVG icon height */
 }
 
 .calendar {
     width: 100%;
-    max-width: 600px;
+    max-width: 450px;
     margin: 0 auto;
     border-collapse: collapse;
 }
 .calendar thead {
     background-color: #1c1c1e; /* Color for top day blocks */
-    color: #f1f0f5
+    color: #f1f0f5;
 }
 .calendar th {
     padding: 10px;
@@ -53,23 +65,113 @@ body {
 }
 .calendar td {
     width: 14.28%;
-    height: 100px;
-    border: 1px solid #242424; /* Color for date block borders */
-    text-align: right;
-    vertical-align: top;
+    height: 75px;
+    border: 1px solid #242424;
+    text-align: right; /* Keep the date aligned to the right */
+    vertical-align: top; /* Keep the date aligned to the top */
     padding: 5px;
-    color: #f1f0f5 /* Color for calendar text */
+    color: #f1f0f5;
+    position: relative; /* Needed for absolute positioning of children */
 }
 .calendar td:not(:empty):hover {
     background-color: #eaeaea;
     cursor: pointer;
 }
+.calendar td.not-current-month {
+    color: #555555; /* Lighter text color for trailing and leading days */
+}
+/* Styles for date number */
+.calendar td span {
+    display: inline-block; /* Or 'block' if you want the date to be on its line */
+}
 
 /* Style for the current day with a different color and glow effect */
 .selected-day {
-    background-color: #1f66f4; /* Colored background for current day */
-    color: white; /* Color for the text of selected day */
+    background-color: #1f66f4; /* A green background for the current day */
+    color: white;
     font-weight: bold;
-    box-shadow: 0 0 20px #1f66f4; /* Glow effect color */
-    border: 1px solid #1f66f4 !important; /* Specified color for the highlighted day border */
+    box-shadow: 0 0 20px #1f66f4; /* Glow effect */
+}
+/* Style for input number */
+.input-container {
+    color: red;
+    font-size: 1.5em !important;
+    position: absolute; /* Absolute position within the cell */
+    left: 50%; /* Center horizontally */
+    top: 50%; /* Center vertically */
+    transform: translate(-50%, -50%); /* Adjust to center perfectly */
+    width: 100%; /* Full width of the cell */
+    text-align: center; /* Center the text within the container */
+}
+
+/* Custom Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    align-items: center; /* Align the box to the center */
+    justify-content: center; /* Center horizontally */
+}
+
+
+.modal-content {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: fit-content; /* Adjust width to content */
+    color: white; /* Text color */
+}
+
+.number-input-container {
+    display: flex; /* Aligns the buttons and input inline */
+    justify-content: center; /* Center the content */
+    margin: 20px 0;
+}
+
+.number-button {
+    background-color: #555; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    padding: 10px; /* Button padding */
+    font-size: 1.5rem; /* Increase font size */
+    margin: 0 10px; /* Margin around buttons */
+    border-radius: 5px; /* Rounded corners */
+}
+
+#number-input {
+    font-size: 1.5rem; /* Larger font size for the number */
+    margin: 0 10px; /* Space around the number */
+}
+
+.modal-actions {
+    display: flex; /* Align buttons in a row */
+    justify-content: center; /* Center the buttons */
+}
+
+.action-button {
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Button padding */
+    margin: 0 10px; /* Margin around buttons */
+    font-size: 1rem; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Prevent double-tap zoom on buttons and calendar cells */
+button, .calendar td {
+    touch-action: manipulation;
+}
+
+/* Style for carried-over inputs */
+.carried-over-input {
+    color: #yourColor; /* Choose a different color */
+    /* Add any other styles you want for carried-over inputs */
 }
