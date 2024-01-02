@@ -11,22 +11,27 @@ body {
     position: relative; /* Establish a positioning context for absolute positioning */
     padding-top: 30px; /* Add padding to ensure content does not overlap with buttons */
     padding-bottom: 20px; /* Additional space between the nav and calendar */
+    cursor: pointer;
 }
 
 .nav #prev {
     position: absolute;
     left: calc(50% - 120px); /* Adjust this value as needed */
     top: calc(50% - 14px);
+    cursor: pointer;
 }
 .nav #next {
     position: absolute;
     right: calc(50% - 120px); /* Adjust this value as needed */
     top: calc(50% - 14px);
+    cursor: pointer;
 }
 .nav span {
     font-size: 1.2em;
     padding: 0 15px; /* Padding to push the arrows outward a bit */
     color: #FFFFFF; /* Color for the month and year header */
+    cursor: pointer;
+
 }
 
 /* Style for arrow buttons */
@@ -40,6 +45,7 @@ body {
     display: inline-flex; /* Align the SVG icon */
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 /* Style for arrow icons (SVG) */
@@ -54,15 +60,18 @@ body {
     max-width: 450px;
     margin: 0 auto;
     border-collapse: collapse;
+    cursor: pointer;
 }
 .calendar thead {
     background-color: #1c1c1e; /* Color for top day blocks */
     color: #f1f0f5;
+    cursor: pointer;
 }
 .calendar th {
     padding: 10px;
     border: 1px solid #1c1c1e; /* Color for top day block borders */
     text-align: center;
+    cursor: pointer;
 }
 .calendar td {
     width: 14.28%;
@@ -73,17 +82,21 @@ body {
     padding: 5px;
     color: #f1f0f5;
     position: relative; /* Needed for absolute positioning of children */
+    cursor: pointer;
 }
 .calendar td:not(:empty):hover {
     background-color: #262626;
     cursor: pointer;
+    cursor: pointer;
 }
 .calendar td.not-current-month {
     color: #555555; /* Lighter text color for trailing and leading days */
+    cursor: pointer;
 }
 /* Styles for date number */
 .calendar td span {
     display: inline-block; /* Or 'block' if you want the date to be on its line */
+    cursor: pointer;
 }
 
 /* Style for the current day with a different color and glow effect */
@@ -92,6 +105,7 @@ body {
     color: white;
     font-weight: bold;
     box-shadow: 0 0 20px #1f66f4; /* Glow effect */
+    cursor: pointer;
 }
 /* Style for input number */
 .input-container {
@@ -103,6 +117,7 @@ body {
     transform: translate(-50%, -50%); /* Adjust to center perfectly */
     width: 100%; /* Full width of the cell */
     text-align: center; /* Center the text within the container */
+    cursor: pointer;
 }
 
 /* Custom Modal Styles */
@@ -119,6 +134,7 @@ body {
     align-items: center; /* Align the box to the center */
     justify-content: center; /* Center horizontally */
     pointer-events: none;  /* Ensures that by default pointer events pass through */
+    cursor: pointer;
 }
 
 
@@ -131,12 +147,14 @@ body {
     color: white; /* Text color */
     pointer-events: auto; /* Enables pointer events on the modal content */
     position: relative; /* Add this to ensure .close-button is positioned correctly */
+    cursor: pointer;
 }
 
 .number-input-container {
     display: flex; /* Aligns the buttons and input inline */
     justify-content: center; /* Center the content */
     margin: 20px 0;
+    cursor: pointer;
 }
 
 .number-button {
@@ -149,17 +167,20 @@ body {
     margin-bottom: -10px;
     border-radius: 5px; /* Rounded corners */
     transform: translate(5%, -25%);
+    cursor: pointer;
 }
 
 #number-input {
     font-size: 2.5rem; /* Larger font size for the number */
     margin: 0 10px; /* Space around the number */
     transform: translate(20%, 0%);
+    cursor: pointer;
 }
 
 .modal-actions {
     display: flex; /* Align buttons in a row */
     justify-content: center; /* Center the buttons */
+    cursor: pointer;
 }
 
 .action-button {
@@ -170,6 +191,7 @@ body {
     margin: 0 10px; /* Margin around buttons */
     font-size: 1.5rem; /* Font size */
     border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
 }
 
 .action-button-cancel {
@@ -180,16 +202,19 @@ body {
     margin: 0 10px; /* Margin around buttons */
     font-size: 1.5rem; /* Font size */
     border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
 }
 
 /* Prevent double-tap zoom on buttons and calendar cells */
 button, .calendar td {
     touch-action: manipulation;
+    cursor: pointer;
 }
 
 /* Style for carried-over inputs */
 .carried-over-input {
     color: #990000 !important; /* Choose a different color */
+    cursor: pointer;
     /* Add any other styles you want for carried-over inputs */
 }
 
@@ -205,6 +230,7 @@ button, .calendar td {
     justify-content: space-around;
     background-color: #1a1a1a;
     padding: 20px 0;
+    cursor: pointer;
 }
 
 .menu-button {
@@ -217,6 +243,7 @@ button, .calendar td {
     fill: #ffffff;
     width: 28px;
     height: 28px;
+    cursor: pointer;
 }
 
 /* Styles for the sum prompt */
@@ -227,12 +254,14 @@ button, .calendar td {
     width: 300px;
     font-size: 1.5em;
     background-color: #1a1a1a;
+    cursor: pointer;
 }
 
 #weekly-summaries div {
     margin-top: 10px;
     padding-left: 0px; /* Adjust as needed for alignment */
     text-align: left; /* Align text to the left */
+    cursor: pointer;
   /*  font-size: 1.5em;*/
 }
 
@@ -249,6 +278,7 @@ button, .calendar td {
 .drinks-title {
   transform: translate(0%, -50%);
   font-size: 1.5em;
+  cursor: pointer;
   /*  margin-left: 20px; /* Adjust the value as needed to move the text to the right */
     /* Add other styles as needed */
 }
@@ -256,10 +286,12 @@ button, .calendar td {
 .weekly-drinks-title {
   font-size:1.25em;
   color: #1aa3ff;
+  cursor: pointer;
 }
 
 #weekly-summaries div:nth-child(odd) {
     color: #cc2900; /* Color for odd weeks */
+    cursor: pointer;
   /*  text-decoration: underline white;
 }
 
@@ -271,9 +303,20 @@ button, .calendar td {
 /* Color for the drink numbers of odd weeks */
 #weekly-summaries div:nth-child(odd) .drinks-number {
     color: white; /* Replace with your desired color for odd weeks */
+    cursor: pointer;
 }
 
 /* Color for the drink numbers of even weeks */
 #weekly-summaries div:nth-child(even) .drinks-number {
     color: #cc2900; /* Replace with your desired color for even weeks */
+    cursor: pointer;
+}
+
+#page-container {
+    position: absolute; /* Position it over the body */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    cursor: pointer; /* Optional, for desktop browsers */
 }
