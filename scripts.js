@@ -377,11 +377,3 @@ window.addEventListener('click', function(event) {
         event.stopPropagation(); // Stop the propagation if a modal was closed
     }
 });
-
-// Attach an event listener to the window to close modals when clicking anywhere
-window.addEventListener('click', function(event) {
-    // Check if the click target is not a modal or a button
-    if (!event.target.closest('.modal, .menu-button, button, a')) {
-        closeOpenModals();
-    }
-}, true); // Use capturing phase to catch the event as it propagates down
