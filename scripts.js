@@ -65,7 +65,14 @@ function generateCalendar(year, month) {
                 let tapLength = currentTime - lastTapTime;
                 if (tapLength < 200 && tapLength > 0) {
                     // Double tap detected
+                    disableModalClose = true;  // Disable closing of modals temporarily
+
                     showConfirmationModal(inputContainer, formattedDate);
+
+                    // Re-enable closing of modals after a short delay
+                    setTimeout(function() {
+                        disableModalClose = false;
+                    }, 500); // Adjust the delay as needed
                 } else {
                     // Delay to differentiate from double tap
                     setTimeout(function() {
@@ -88,6 +95,7 @@ function generateCalendar(year, month) {
 
 // Function to show the confirmation modal
 function showConfirmationModal(inputContainer, date) {
+    if (!canOpenModal) return;
     let confirmationModal = document.getElementById('confirmation-modal');
     confirmationModal.style.display = "flex";
 
@@ -112,6 +120,7 @@ function updateCalendarHeader(year, month) {
 }
 
 function showModal(dateSpan, inputContainer, date) {
+    if (!canOpenModal) return;
     let modal = document.getElementById('number-input-modal');
     let numberInputSpan = document.getElementById('number-input');
     numberInputSpan.textContent = inputContainer.textContent || '0';
@@ -218,6 +227,7 @@ document.getElementById('home-tab').addEventListener('click', function() {
 
 // Modify the event listener for the 'Sum' tab to call the new function
 document.getElementById('sum-tab').addEventListener('click', function() {
+    if (!canOpenModal) return;
     calculateWeeklySums(); // Calculate sums when the sum tab is clicked
     document.getElementById('sum-prompt').style.display = "flex"; // Show the prompt
 });
@@ -320,10 +330,50 @@ function closeSumPrompt() {
 // Event listener for the close button
 document.querySelector('.close-button').addEventListener('click', closeSumPrompt);
 
-// Event listener for clicking outside the modal
+
+let disableModalClose = false;
+let canOpenModal = true;
+const MODAL_OPEN_TIMEOUT = 200; // Timeout duration in milliseconds, adjust as needed
+
+// Function to close a modal and return true if it was closed
+function closeModal(modalId) {
+    let modal = document.getElementById(modalId);
+    if (modal && modal.style.display !== "none") {
+        modal.style.display = "none";
+        canOpenModal = false;
+
+        setTimeout(() => {
+            canOpenModal = true;
+        }, MODAL_OPEN_TIMEOUT);
+
+        console.log(`Modal '${modalId}' closed`);
+    }
+}
+
+// Event listener for clicking outside the modals
 window.addEventListener('click', function(event) {
-    let sumPrompt = document.getElementById('sum-prompt');
-    if (event.target === sumPrompt) {
-        closeSumPrompt();
+    let modals = ['number-input-modal', 'confirmation-modal', 'sum-prompt'];
+    let modalClosed = false;
+
+    modals.forEach(function(modalId) {
+        let modal = document.getElementById(modalId);
+        // Check if the modal is displayed
+        if (modal && modal.style.display === "flex") {
+            let modalContent = modal.querySelector('.modal-content');
+            let isClickInsideModalContent = modalContent && modalContent.contains(event.target);
+
+            // Check if the click is on the 'sum-tab' button
+            let isSumTabClick = event.target.closest('#sum-tab');
+
+            if (!isClickInsideModalContent && !isSumTabClick && !disableModalClose) {
+                if (closeModal(modalId)) {
+                    modalClosed = true;
+                }
+            }
+        }
+    });
+
+    if (modalClosed) {
+        event.stopPropagation(); // Stop the propagation if a modal was closed
     }
 });
