@@ -201,3 +201,129 @@ function loadInput(date) {
 function saveInput(date, input) {
     localStorage.setItem(date, input);
 }
+
+
+
+
+
+
+// Event listener for the 'Home' tab
+document.getElementById('home-tab').addEventListener('click', function() {
+    currentDate = new Date(); // Reset to current date
+    displayedMonth = currentDate.getMonth();
+    displayedYear = currentDate.getFullYear();
+    updateCalendarHeader(displayedYear, displayedMonth);
+    generateCalendar(displayedYear, displayedMonth);
+});
+
+// Modify the event listener for the 'Sum' tab to call the new function
+document.getElementById('sum-tab').addEventListener('click', function() {
+    calculateWeeklySums(); // Calculate sums when the sum tab is clicked
+    document.getElementById('sum-prompt').style.display = "flex"; // Show the prompt
+});
+
+
+function calculateWeeklySums() {
+    let weeklySums = document.getElementById('weekly-summaries');
+    weeklySums.innerHTML = ''; // Clear existing content
+
+    // Calculate the first and last calendar days displayed for the current month's view
+    let calendarStart = new Date(displayedYear, displayedMonth, 1);
+    calendarStart.setDate(calendarStart.getDate() - calendarStart.getDay()); // Go back to the start of the week
+
+    let calendarEnd = new Date(displayedYear, displayedMonth + 1, 0); // Last day of the current month
+    calendarEnd.setDate(calendarEnd.getDate() + (6 - calendarEnd.getDay())); // Go forward to the end of the week
+
+    let currentDay = new Date(calendarStart);
+    let weekSum = 0;
+    let weekStartDay = currentDay.getDate();
+    let weekStartDate = new Date(currentDay);
+
+    // Loop over each day from the calendar start to the calendar end
+    while (currentDay <= calendarEnd) {
+        // Sum drinks for the day
+        let dateKey = formatDateKey(currentDay);
+        weekSum += parseInt(localStorage.getItem(dateKey) || '0', 10);
+
+        // At the end of the week, post the weekly total
+        if (currentDay.getDay() === 6) {
+            postWeekTotal(weekStartDate, weekSum, weeklySums);
+            weekSum = 0; // Reset for the next week
+        }
+
+        // Move to the next day, check if the week or month has ended
+        currentDay.setDate(currentDay.getDate() + 1);
+        if (currentDay.getDay() === 0) {
+            weekStartDate = new Date(currentDay);
+        }
+    }
+
+    // If the week didn't end on a Saturday, post the remaining days as the final week
+    if (weekSum > 0) {
+        postWeekTotal(weekStartDate, weekSum, weeklySums);
+    }
+}
+
+function postWeekTotal(weekStartDate, weekSum, weeklySums) {
+    // Adjust week start day for display
+    let weekStartDay = weekStartDate.getDate();
+    let weekStartDisplay;
+
+    // Check if the week starts in the current month or the previous month
+    if (weekStartDate.getMonth() === displayedMonth) {
+        weekStartDisplay = weekStartDay; // Use the current date if in the current month
+    } else {
+        // If the week starts in the previous month, get the last Sunday of that month
+        let lastSundayPreviousMonth = new Date(weekStartDate);
+        lastSundayPreviousMonth.setDate(lastSundayPreviousMonth.getDate() - lastSundayPreviousMonth.getDay());
+        weekStartDisplay = lastSundayPreviousMonth.getDate(); // Use the date of the last Sunday
+    }
+
+    let summaryElement = document.createElement('div');
+    summaryElement.innerHTML = `Week of the ${weekStartDisplay}${getOrdinalSuffix(weekStartDisplay)}: `;
+    let drinksText = document.createElement('span');
+    drinksText.classList.add('drinks-number');
+    drinksText.textContent = `${weekSum} drinks`;
+    summaryElement.appendChild(drinksText);
+    weeklySums.appendChild(summaryElement);
+}
+
+function formatDateKey(date) {
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+}
+
+
+
+
+// Function to get the ordinal suffix for a number
+function getOrdinalSuffix(number) {
+    let j = number % 10, k = number % 100;
+    if (j == 1 && k != 11) {
+        return "st";
+    }
+    if (j == 2 && k != 12) {
+        return "nd";
+    }
+    if (j == 3 && k != 13) {
+        return "rd";
+    }
+    return "th";
+}
+
+
+
+// Function to close the sum prompt
+function closeSumPrompt() {
+    document.getElementById('sum-prompt').style.display = "none";
+}
+
+// Event listener for the close button
+document.querySelector('.close-button').addEventListener('click', closeSumPrompt);
+
+// Event listener for clicking outside the modal
+window.addEventListener('click', function(event) {
+    let sumPrompt = document.getElementById('sum-prompt');
+    if (event.target === sumPrompt) {
+        closeSumPrompt();
+    }
+});

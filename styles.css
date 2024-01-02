@@ -74,7 +74,7 @@ body {
     position: relative; /* Needed for absolute positioning of children */
 }
 .calendar td:not(:empty):hover {
-    background-color: #eaeaea;
+    background-color: #262626;
     cursor: pointer;
 }
 .calendar td.not-current-month {
@@ -94,7 +94,7 @@ body {
 }
 /* Style for input number */
 .input-container {
-    color: red;
+    color: #FF0000;
     font-size: 1.5em !important;
     position: absolute; /* Absolute position within the cell */
     left: 50%; /* Center horizontally */
@@ -117,16 +117,19 @@ body {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     align-items: center; /* Align the box to the center */
     justify-content: center; /* Center horizontally */
+    pointer-events: none;  /* Ensures that by default pointer events pass through */
 }
 
 
 .modal-content {
-    background-color: #333;
-    padding: 20px;
+    background-color: #1a1a1a;
+    padding: 30px;
     border-radius: 10px;
     text-align: center;
     width: fit-content; /* Adjust width to content */
     color: white; /* Text color */
+    pointer-events: auto; /* Enables pointer events on the modal content */
+    position: relative; /* Add this to ensure .close-button is positioned correctly */
 }
 
 .number-input-container {
@@ -136,18 +139,21 @@ body {
 }
 
 .number-button {
-    background-color: #555; /* Button background color */
+    background-color: transparent; /* Button background color */
     color: white; /* Button text color */
     border: none; /* No border */
-    padding: 10px; /* Button padding */
-    font-size: 1.5rem; /* Increase font size */
+    padding: 20px; /* Button padding */
+    font-size: 2.5rem; /* Increase font size */
     margin: 0 10px; /* Margin around buttons */
+    margin-bottom: -10px;
     border-radius: 5px; /* Rounded corners */
+    transform: translate(5%, -25%);
 }
 
 #number-input {
-    font-size: 1.5rem; /* Larger font size for the number */
+    font-size: 2.5rem; /* Larger font size for the number */
     margin: 0 10px; /* Space around the number */
+    transform: translate(20%, 0%);
 }
 
 .modal-actions {
@@ -161,7 +167,17 @@ body {
     border: none; /* No border */
     padding: 10px 20px; /* Button padding */
     margin: 0 10px; /* Margin around buttons */
-    font-size: 1rem; /* Font size */
+    font-size: 1.5rem; /* Font size */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.action-button-cancel {
+    background-color: #333333; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Button padding */
+    margin: 0 10px; /* Margin around buttons */
+    font-size: 1.5rem; /* Font size */
     border-radius: 5px; /* Rounded corners */
 }
 
@@ -172,6 +188,91 @@ button, .calendar td {
 
 /* Style for carried-over inputs */
 .carried-over-input {
-    color: #yourColor; /* Choose a different color */
+    color: #990000 !important; /* Choose a different color */
     /* Add any other styles you want for carried-over inputs */
+}
+
+
+
+
+/* Styles for the bottom menu */
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #1a1a1a;
+    padding: 10px 0;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu-icon {
+    fill: #ffffff;
+    width: 24px;
+    height: 24px;
+}
+
+/* Styles for the sum prompt */
+#sum-prompt .modal-content {
+    /* Your existing styles for modal content */
+    /* Position adjustments to display above the menu */
+    bottom: 50px; /* Adjust as necessary to position above the menu */
+    width: 300px;
+    font-size: 1.5em;
+    background-color: #1a1a1a;
+}
+
+#weekly-summaries div {
+    margin-top: 10px;
+    padding-left: 0px; /* Adjust as needed for alignment */
+    text-align: left; /* Align text to the left */
+  /*  font-size: 1.5em;*/
+}
+
+.close-button {
+    position: absolute;
+    padding-bottom:100px;
+    top: 5px;
+    right: 20px;
+    font-size: 1.5em;
+    color: white;
+    cursor: pointer;
+}
+
+.drinks-title {
+  transform: translate(0%, -50%);
+  font-size: 1.5em;
+  /*  margin-left: 20px; /* Adjust the value as needed to move the text to the right */
+    /* Add other styles as needed */
+}
+
+.weekly-drinks-title {
+  font-size:1.25em;
+  color: #1aa3ff;
+}
+
+#weekly-summaries div:nth-child(odd) {
+    color: #cc2900; /* Color for odd weeks */
+  /*  text-decoration: underline white;
+}
+
+#weekly-summaries div:nth-child(even) {
+    color: white; /* Color for even weeks */
+  /*  text-decoration: underline #cc2900;*/
+}
+
+/* Color for the drink numbers of odd weeks */
+#weekly-summaries div:nth-child(odd) .drinks-number {
+    color: white; /* Replace with your desired color for odd weeks */
+}
+
+/* Color for the drink numbers of even weeks */
+#weekly-summaries div:nth-child(even) .drinks-number {
+    color: #cc2900; /* Replace with your desired color for even weeks */
 }
