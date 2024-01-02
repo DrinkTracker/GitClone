@@ -8,19 +8,19 @@ body {
 .nav {
     text-align: center;
     position: relative; /* Establish a positioning context for absolute positioning */
-    padding-top: 10px; /* Add padding to ensure content does not overlap with buttons */
-    padding-bottom: 10px; /* Additional space between the nav and calendar */
+    padding-top: 30px; /* Add padding to ensure content does not overlap with buttons */
+    padding-bottom: 20px; /* Additional space between the nav and calendar */
 }
 
 .nav #prev {
     position: absolute;
     left: calc(50% - 120px); /* Adjust this value as needed */
-    top: calc(50% - 18px);
+    top: calc(50% - 14px);
 }
 .nav #next {
     position: absolute;
     right: calc(50% - 120px); /* Adjust this value as needed */
-    top: calc(50% - 18px);
+    top: calc(50% - 14px);
 }
 .nav span {
     font-size: 1.2em;
@@ -203,7 +203,7 @@ button, .calendar td {
     display: flex;
     justify-content: space-around;
     background-color: #1a1a1a;
-    padding: 10px 0;
+    padding: 20px 0;
 }
 
 .menu-button {
@@ -214,8 +214,8 @@ button, .calendar td {
 
 .menu-icon {
     fill: #ffffff;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
 }
 
 /* Styles for the sum prompt */
