@@ -378,23 +378,10 @@ window.addEventListener('click', function(event) {
     }
 });
 
-// This function should close any open modals
-function closeOpenModals() {
-    let modals = ['number-input-modal', 'confirmation-modal', 'sum-prompt'];
-    modals.forEach(function(modalId) {
-        let modal = document.getElementById(modalId);
-        if (modal && modal.style.display === "flex") {
-            modal.style.display = "none";
-        }
-    });
-}
-
-// Attach an event listener to the body to close modals when clicking on a blank area
-document.body.addEventListener('click', function(event) {
-    // Check if the click target is the body or one of its direct children that are not otherwise interactive
-    if (event.target === document.body || (event.target.parentNode === document.body && !event.target.closest('.modal, .menu-button'))) {
+// Attach an event listener to the window to close modals when clicking anywhere
+window.addEventListener('click', function(event) {
+    // Check if the click target is not a modal or a button
+    if (!event.target.closest('.modal, .menu-button, button, a')) {
         closeOpenModals();
     }
-});
-
-document.body.setAttribute('onclick', '');
+}, true); // Use capturing phase to catch the event as it propagates down
