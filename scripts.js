@@ -377,3 +377,24 @@ window.addEventListener('click', function(event) {
         event.stopPropagation(); // Stop the propagation if a modal was closed
     }
 });
+
+// This function should close any open modals
+function closeOpenModals() {
+    let modals = ['number-input-modal', 'confirmation-modal', 'sum-prompt'];
+    modals.forEach(function(modalId) {
+        let modal = document.getElementById(modalId);
+        if (modal && modal.style.display === "flex") {
+            modal.style.display = "none";
+        }
+    });
+}
+
+// Attach an event listener to the body to close modals when clicking on a blank area
+document.body.addEventListener('click', function(event) {
+    // Check if the click target is the body or one of its direct children that are not otherwise interactive
+    if (event.target === document.body || (event.target.parentNode === document.body && !event.target.closest('.modal, .menu-button'))) {
+        closeOpenModals();
+    }
+});
+
+document.body.setAttribute('onclick', '');
