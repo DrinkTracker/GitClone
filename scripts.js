@@ -147,15 +147,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Event listener for the 'Increase' button
     document.getElementById('increase-number').addEventListener('click', function() {
         let numberInputSpan = document.getElementById('number-input');
-        numberInputSpan.textContent = parseInt(numberInputSpan.textContent, 10) + 1;
+        numberInputSpan.textContent = parseFloat(numberInputSpan.textContent, 10) + 0.5;
     });
 
     // Event listener for the 'Decrease' button
     document.getElementById('decrease-number').addEventListener('click', function() {
         let numberInputSpan = document.getElementById('number-input');
-        let currentValue = parseInt(numberInputSpan.textContent, 10);
+        let currentValue = parseFloat(numberInputSpan.textContent, 10);
         if (currentValue > 0) {
-            numberInputSpan.textContent = currentValue - 1;
+            numberInputSpan.textContent = currentValue - 0.5;
         }
     });
 
@@ -253,7 +253,7 @@ function calculateWeeklySums() {
     while (currentDay <= calendarEnd) {
         // Sum drinks for the day
         let dateKey = formatDateKey(currentDay);
-        weekSum += parseInt(localStorage.getItem(dateKey) || '0', 10);
+        weekSum += parseFloat(localStorage.getItem(dateKey) || '0', 10);
 
         // At the end of the week, post the weekly total
         if (currentDay.getDay() === 6) {
